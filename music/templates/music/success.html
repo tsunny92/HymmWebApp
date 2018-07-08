@@ -1,0 +1,7 @@
+{% if request.user.is_authenticated %}
+<p>Welcome {{user.first_name}} </p>
+<form action="{% url 'music:user_logout' %}">
+<button type="submit"class="btn btn-block"> Sign out  </button>
+</form>
+
+{% endif %}

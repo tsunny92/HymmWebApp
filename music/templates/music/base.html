@@ -1,0 +1,154 @@
+<style>
+ body{
+            background:url('https://image.freepik.com/vrije-vector/gradient-achtergrond_1159-750.jpg') no-repeat center center fixed;
+                  background-size:cover;
+    }
+
+</style>
+
+
+<html lang="en">
+<head>
+<title>{% block title %}Hymm{% endblock %}</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<link href='https://fonts.googleapis.com/css?family=Satisfy' rel='stylesheet' type='text/css'>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+<!--<script>
+
+$(document).ready(function(){
+    $('#myModal').modal('show');
+});
+</script>
+-->
+
+
+</head>
+<style>
+
+.navbar-brand{
+    font-family: 'Satisfy', cursive;
+    font-size: 1.8em;
+    padding: 8px 10px 13px;
+}
+
+body { padding-top: 70px; }
+
+</style>
+<body>
+
+<nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#topNavBar">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" class="active" href="{% url 'music:index' %}">
+                <span class="glyphicon glyphicon-home" aria-hidden="true"></span>&nbsp; Hymm
+            </a>
+        </div>
+        <div class="collapse navbar-collapse" id="topNavBar">
+            <ul class="nav navbar-nav">
+                <li class="">
+                <a href="">
+                    <span class="glyphicon glyphicon-cd" aria-hidden="true"></span>&nbsp; Albums
+                </a>
+                </li>
+                <li class="">
+                <a href="">
+                    <span class="glyphicon glyphicon-music" aria-hidden="true"></span>&nbsp; Songs
+                </a>
+                </li>
+
+            </ul>
+            <form class="navbar-form navbar-left" role="search" method="get" action="#">
+                <div class="form-group">
+                    <input type="text"class="form-control" name="query" value="">
+                </div>
+                <button type="submit" class="btn btn-primary">
+                    <span class="glyphicon glyphicon-search"></span>&nbsp;Search</button>
+            </form>
+        <ul class="nav navbar-nav navbar-right">
+            {% if request.user.is_authenticated %}
+            <li><a href="{% url 'music:album-add' %}"><span class="glyphicon glyphicon-upload"></span> Upload Album</a></li>
+            {% else %}
+            <li><a href="" data-toggle="modal" data-target="#myModal"><span class="glyphicon glyphicon-upload"></span> Upload Album</a></li>
+            {% endif %}
+            <li><a href="#"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+            {% if request.user.is_authenticated %}
+            <li><a href="{% url 'music:user_logout' %}" > <span class="glyphicon glyphicon-log-out"></span> Logout</a></li> 
+            {% else %}
+            <!--      /*  <li><a href="music/login.html" data-toggle="modal" data-target="#myModal"> <span class="glyphicon glyphicon-log-in"></span> Login</a></li> -->
+            <li><a href="" data-toggle="modal" data-target="#myModal"> <span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+            {% endif %}
+        </ul>
+    </div>
+</nav>
+
+
+
+<style>
+/* Add a dark gray background color to the modal header and center text */
+.modal-header, h4, .close {
+    background-color: #333;
+    color: #fff !important;
+    text-align: center;
+    font-size: 30px;
+}
+
+.modal-header, .modal-body {
+    padding: 40px 50px;
+}
+</style>
+
+
+
+<!-- Modal -->
+<div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
+
+
+<!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4><span class="glyphicon glyphicon-lock"></span> Login</h4>
+            </div>
+            <div class="modal-body">
+                <form method="post" action="{% url 'music:user_login' %}" autocomplete="off">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <label for="username"><span class="glyphicon glyphicon-user"></span> Username</label>
+                            <input type="text" id="username" name="username" class="validate"  class="form-control" placeholder="Enter your username" required="required">
+                    </div>
+                    <div class="form-group">
+                      <label for="password"><span class="glyphicon glyphicon-user"></span> Password</label>
+                          <input type="password" class="validate" class="form-control" id="password"  name="password"  placeholder="Enter your password" required="required">
+                    </div>
+                    <button type="submit" class="btn btn-block"> Sign In
+                         <span class="glyphicon glyphicon-ok"></span>
+                    </button>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="submit" class="btn btn-danger btn-default pull-left" data-dismiss="modal">
+                    <span class="glyphicon glyphicon-remove"></span> Cancel
+                </button>
+                <p>Need <a href="#">help?</a></p>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+{% block body %}
+{% endblock %}
+
+</body>
+</html>
